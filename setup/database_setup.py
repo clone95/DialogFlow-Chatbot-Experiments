@@ -1,4 +1,5 @@
-import dialogflow_backend.helper as help
+import app.helper as hlp
+import datetime
 
 doctors = [
 
@@ -23,7 +24,7 @@ doctors = [
 
                     {
                         "patient_name": "Giulio Cesare",
-                        "date": "17/02/2019",
+                        "date": datetime.datetime(2019, 5, 29, 15, 00),
                         "reason": "normal check",
                         "starting_hour": 15,
                         "duration_in_minutes": 40
@@ -31,7 +32,7 @@ doctors = [
 
                     {
                         "patient_name": "Alessandro Magno",
-                        "date": "19/02/2019",
+                        "date": datetime.datetime(2019, 5, 29, 18, 00),
                         "reason": "abnormal hearth pace",
                         "starting_hour": 18,
                         "duration_in_minutes": 20
@@ -43,16 +44,10 @@ doctors = [
 
 
 def main():
-    db = help.connect_to_database()
+    db = hlp.connect_to_database()
     collection = db.get_collection("doctors")
     for doctor in doctors:
         collection.save(doctor)
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

@@ -1,7 +1,8 @@
 # Imports the Google Cloud client library
 import os
 import dialogflow
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users\jack\Desktop\CLOUDIFAI\Google\pythontest-f8d5e75dddcd.json"
+# use GCP credentials
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users\jack\Desktop\work\Google\pythontest-f8d5e75dddcd.json"
 
 
 session_client = dialogflow.SessionsClient()
