@@ -1,6 +1,6 @@
 """
 this file handle the connection to the MongoDB database
-these functions are called in setup.py
+these management are called in setup.py
 
 ***
     default options:  host=localhost, port=27017, database_name="local"
