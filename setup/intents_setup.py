@@ -24,7 +24,7 @@ intent = {
                                                                     "alias": "medic"}]}],
 
     "output_contexts": [{"name": "projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID),
-                         "lifespan_count": 3}],
+                         "lifespan_count": 2}],
 
     "parameters": [{"display_name": "medic", "entity_type_display_name": "@medical_profession",
                     "value": "$medic.original", "mandatory": True}]}
@@ -38,37 +38,37 @@ intent_followup1 = {
     "display_name": "book_visit_followup1",
     "webhook_state": True,
     "training_phrases": [{"parts": [{"text": "a "}, {"text": "roma",
-                                                     "entity_type": "@sys.geo-city", "alias": "place"},
-                                    {"text": "vicino a "}, {"text": "milano",
+                                                     "entity_type": "@sys.geo-city", "alias": "place"}]},
+                         {"parts": [{"text": "vicino a "}, {"text": "milano",
                                                             "entity_type": "@sys.geo-city", "alias": "place"}]}],
+
     "input_context_names": ["projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID)],
     "parent_followup_intent_name": "projects/{}/agent/intents/{}".format(projectID, response.name[-36:]),
     "output_contexts": [{"name": "projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID),
-                         "lifespan_count": 3}],
+                         "lifespan_count": 1}],
     "parameters": [{"display_name": "place", "entity_type_display_name": "@sys.geo-city",
                     "value": "place.original", "mandatory": True}]}
 
 
 response = client.create_intent(parent, intent_followup1)
 
-#
+# followup intent 2, asks for the desired day
 
 intent_followup2 = {
     "display_name": "book_visit_followup2",
     "webhook_state": True,
-    "training_phrases": [{"parts": [{"text": "il "}, {"text": "14",
-                                                      "entity_type": "@sys.geo-city", "alias": "place"},
-                                    {"text": "vicino a "}, {"text": "milano",
-                                                            "entity_type": "@sys.geo-city", "alias": "place"}]}],
+    "training_phrases": [{"parts": [{"text": "il "}, {"text": "14", "entity_type": "@sys.date", "alias": "day"}]},
+                         {"parts": [{"text": "15", "entity_type": "@sys.date", "alias": "day"}]}],
+
     "input_context_names": ["projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID)],
     "parent_followup_intent_name": "projects/{}/agent/intents/{}".format(projectID, response.name[-36:]),
     "output_contexts": [{"name": "projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID),
-                         "lifespan_count": 3}],
-    "parameters": [{"display_name": "place", "entity_type_display_name": "@sys.geo-city",
-                    "value": "place.original", "mandatory": True}]}
+                         "lifespan_count": 1}],
+    "parameters": [{"display_name": "day", "entity_type_display_name": "@sys.date",
+                    "value": "day.original", "mandatory": True}]}
 
 
-response = client.create_intent(parent, intent_followup1)
+response = client.create_intent(parent, intent_followup2)
 
 
 

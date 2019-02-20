@@ -30,8 +30,14 @@ def webhook():
             "fulfillmentText": string,
             "source": string
         }
-    elif req["queryResult"]["intent"]["displayName"] == "book_visit_followup":
-        string = "Ok, che giorno peferisci?"
+    elif req["queryResult"]["intent"]["displayName"] == "book_visit_followup1":
+        string = "Ok, che giorno preferisci?"
+        my_result = {
+            "fulfillmentText": string,
+            "source": string
+        }
+    elif req["queryResult"]["intent"]["displayName"] == "book_visit_followup2":
+        string = "Ok, a che ora?"
         my_result = {
             "fulfillmentText": string,
             "source": string
