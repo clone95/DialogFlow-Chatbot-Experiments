@@ -42,6 +42,16 @@ def webhook():
             "fulfillmentText": string,
             "source": string
         }
+    elif req["queryResult"]["intent"]["displayName"] == "book_visit_followup3":
+        print("--------------------------------------------------")
+        print(req)
+        params = req["queryResult"]["outputContexts"][0]["parameters"]
+        string = "Ok, ora cerco un " + params["medic"] + ", a " + str(params["place"]) + ", il giorno " + str(params["day"]) + " alle " + str(params["hour"])
+
+        my_result = {
+            "fulfillmentText": string,
+            "source": string
+        }
     res = json.dumps(my_result, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'

@@ -24,7 +24,7 @@ intent = {
                                                                     "alias": "medic"}]}],
 
     "output_contexts": [{"name": "projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID),
-                         "lifespan_count": 2}],
+                         "lifespan_count": 5}],
 
     "parameters": [{"display_name": "medic", "entity_type_display_name": "@medical_profession",
                     "value": "$medic.original", "mandatory": True}]}
@@ -45,7 +45,7 @@ intent_followup1 = {
     "input_context_names": ["projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID)],
     "parent_followup_intent_name": "projects/{}/agent/intents/{}".format(projectID, response.name[-36:]),
     "output_contexts": [{"name": "projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID),
-                         "lifespan_count": 1}],
+                         "lifespan_count": 5}],
     "parameters": [{"display_name": "place", "entity_type_display_name": "@sys.geo-city",
                     "value": "place.original", "mandatory": True}]}
 
@@ -57,19 +57,37 @@ response = client.create_intent(parent, intent_followup1)
 intent_followup2 = {
     "display_name": "book_visit_followup2",
     "webhook_state": True,
-    "training_phrases": [{"parts": [{"text": "il "}, {"text": "14", "entity_type": "@sys.date", "alias": "day"}]},
-                         {"parts": [{"text": "15", "entity_type": "@sys.date", "alias": "day"}]}],
+    "training_phrases": [{"parts": [{"text": "il giorno "}, {"text": "14",
+                                                             "entity_type": "@day_of_the_month", "alias": "day"}]}],
 
     "input_context_names": ["projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID)],
     "parent_followup_intent_name": "projects/{}/agent/intents/{}".format(projectID, response.name[-36:]),
     "output_contexts": [{"name": "projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID),
-                         "lifespan_count": 1}],
-    "parameters": [{"display_name": "day", "entity_type_display_name": "@sys.date",
+                         "lifespan_count": 5}],
+    "parameters": [{"display_name": "day", "entity_type_display_name": "@day_of_the_month",
                     "value": "day.original", "mandatory": True}]}
 
 
 response = client.create_intent(parent, intent_followup2)
 
+# followup intent 3, asks for the desired hour
+
+intent_followup3 = {
+    "display_name": "book_visit_followup3",
+    "webhook_state": True,
+    "training_phrases": [{"parts": [{"text": "alle "}, {"text": "14",
+                                                        "entity_type": "@hour_of_the_day", "alias": "hour"}]},
+                         {"parts": [{"text": "15", "entity_type": "@hour_of_the_day", "alias": "hour"}]}],
+
+    "input_context_names": ["projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID)],
+    "parent_followup_intent_name": "projects/{}/agent/intents/{}".format(projectID, response.name[-36:]),
+    "output_contexts": [{"name": "projects/{}/agent/sessions/setup_session/contexts/book_visit".format(projectID),
+                         "lifespan_count": 5}],
+    "parameters": [{"display_name": "hour", "entity_type_display_name": "@hour_of_the_day",
+                    "value": "hour.original", "mandatory": True}]}
+
+
+response = client.create_intent(parent, intent_followup3)
 
 
 
