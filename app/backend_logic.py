@@ -21,48 +21,25 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    print()
-    print("Request:")
-    # commented out by Naresh
+
     print(json.dumps(req, indent=4))
-    string = "ciao zio"
-    my_result = {
-
-        "fulfillmentText": string,
-        "source": string
-    }
-
+    # i select the appropriate logic for the right intent, in this case "book_visit"
+    if req["queryResult"]["intent"]["displayName"] == "book_visit":
+        string = "Ok, ti cerco un " + req["queryResult"]["parameters"]["medic"] + ". Dove vuoi trovarlo?"
+        my_result = {
+            "fulfillmentText": string,
+            "source": string
+        }
+    elif req["queryResult"]["intent"]["displayName"] == "book_visit_followup":
+        string = "Ok, che giorno peferisci?"
+        my_result = {
+            "fulfillmentText": string,
+            "source": string
+        }
     res = json.dumps(my_result, indent=4)
-
     r = make_response(res)
-
     r.headers['Content-Type'] = 'application/json'
     return r
-
-
-def processRequest(req):
-    print ("here I am....")
-    print ("starting processRequest...",req.get("queryResult").get("action"))
-    if req.get("queryResult").get("action") != "yahooWeatherForecast":
-        print ("Please check your action name in DialogFlow...")
-        return {}
-
-    data = json.loads("ciaoaoaoaoaoaoao")
-    #for some the line above gives an error and hence decoding to utf-8 might help
-    #data = json.loads(result.decode('utf-8'))
-    print("44444444444")
-    print (data)
-    res = makeWebhookResult(data)
-    return res
-
-
-def makeYqlQuery(req):
-    result = req.get("queryResult")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
 def makeWebhookResult(data):
