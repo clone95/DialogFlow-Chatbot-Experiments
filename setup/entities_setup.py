@@ -15,6 +15,7 @@ session_client = dialogflow.SessionsClient()
 # does not handle synonyms for simplicity
 # medical_profession entity_type creation
 entity_id = entity_types_mng.create_entity_type(projectID, "medical_profession", 1)
+print(entity_id.name[-36:])
 with open("medical_profession_entries.csv", "r") as file:
     for entry in file:
         # entity type ID, when created, starts on the 36 from last char in the response attribute .name
