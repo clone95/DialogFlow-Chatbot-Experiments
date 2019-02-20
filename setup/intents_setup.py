@@ -21,6 +21,18 @@ client.create_intent(parent, intent)
 
 
 
+# session_client = dialogflow.SessionsClient()
+#
+# # INTENTS SETUP
+# training_phrases = ["mi serve una visita dal podologo", "mi serve una visita dal Podologo", "cerca un podologo",
+#                    "cerca un Podologo", "prenota un podologo"]
+#
+# intent_mng.create_intent(projectID, "book_visit", training_phrases, "cioss")
+
+
+
+
+
 
 
 
