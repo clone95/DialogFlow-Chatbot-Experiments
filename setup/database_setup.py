@@ -43,12 +43,3 @@ doctors = [
         ]
 
 
-def main():
-    db = hlp.connect_to_database()
-    collection = db.get_collection("doctors")
-    for doctor in doctors:
-        collection.save(doctor)
-
-
-if __name__ == "__main__":
-    main()

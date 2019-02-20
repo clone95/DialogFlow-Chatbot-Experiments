@@ -9,6 +9,7 @@ from urllib.error import HTTPError
 
 import json
 import os
+import app.helper as hlp
 
 from flask import Flask
 from flask import request
@@ -46,8 +47,10 @@ def webhook():
         print("--------------------------------------------------")
         print(req)
         params = req["queryResult"]["outputContexts"][0]["parameters"]
-        string = "Ok, ora cerco un " + params["medic"] + ", a " + str(params["place"]) + ", il giorno " + str(params["day"]) + " alle " + str(params["hour"])
-
+        # string = "Ok, ora cerco un " + params["medic"] + ", a " + str(params["place"]) + ", il giorno " + str(params["day"]) + " alle " + str(params["hour"])
+        db = hlp.connect_to_database()
+        collection = db.get_collection("doctors")
+        string = ""
         my_result = {
             "fulfillmentText": string,
             "source": string
