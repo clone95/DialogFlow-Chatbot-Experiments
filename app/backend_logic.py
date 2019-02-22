@@ -47,10 +47,13 @@ def webhook():
         print("--------------------------------------------------")
         print(req)
         params = req["queryResult"]["outputContexts"][0]["parameters"]
-        # string = "Ok, ora cerco un " + params["medic"] + ", a " + str(params["place"]) + ", il giorno " + str(params["day"]) + " alle " + str(params["hour"])
+        # params["medic"]   params["place"]    params["day"]    params["hour"]
         db = hlp.connect_to_database()
         collection = db.get_collection("doctors")
-        string = ""
+        retrieved = collection.find({'titles': {"$in": [params["medic"]]}})
+        checked_conditions = []
+
+        string = "Ho trovato il medico " + str(retrieved[0]["name"]["first_name"])
         my_result = {
             "fulfillmentText": string,
             "source": string
