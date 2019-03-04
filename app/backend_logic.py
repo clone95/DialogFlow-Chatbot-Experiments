@@ -95,7 +95,7 @@ def makeWebhookResult(data):
 
     print("Response:")
     print(speech)
-    #Naresh
+    # Naresh
     return {
 
     "fulfillmentText": speech,
@@ -112,7 +112,6 @@ def test():
 def static_reply():
 
     req = request.get_json(silent=True, force=True)
-
 
     string = "You are awesome !!"
     print(req)
