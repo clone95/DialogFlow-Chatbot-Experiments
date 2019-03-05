@@ -37,6 +37,8 @@ professions_intro = [" mi serve un ", " cerca un ", " cercami un ", " trova un "
 
 for verb, comp, pos, prep, medic_i in iters.product(main_verb, complement, position, preposition, professions_intro):
     phrase = {
+
+        # verb + complement + position + proposition + body part + call me + medic_profession
         "parts": [
 
             {"text": verb},

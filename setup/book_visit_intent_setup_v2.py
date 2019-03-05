@@ -30,6 +30,15 @@ with open("data/medical_profession_entries.csv") as file:
 for el in range(8, 19, 1):
     hours.append(el)
 
+days.append("domani")
+days.append("la settimana prossima")
+days.append("questa settimana")
+
+hours.append("alla mattina")
+hours.append("nella mattina")
+hours.append("al pomeriggio")
+hours.append("nel pomeriggio")
+
 for el in range(1, 31, 1):
     days.append(el)
 
@@ -59,6 +68,36 @@ for medic_i, city_i, day_i, hour_i in iters.product(professions_intro, cities_in
 
     phrases.append(phrase)
 
+hours = []
+for el in range(8, 19, 1):
+    hours.append(el)
+
+for el in range(0, 5):
+    phrase = {
+        "parts": [
+            # medic
+            {"text": medic_i},
+            {"text": professions[rand.randint(0, len(professions) - 1)],
+             "entity_type": "@medical_profession", "alias": "medic"},
+            # city
+            {"text": city_i},
+            {"text": cities[rand.randint(0, len(cities) - 1)],
+             "entity_type": "@sys.geo-city", "alias": "city"},
+            # day of the month
+            {"text": day_i},
+            {"text": str(days[rand.randint(0, len(days) - 1)]),
+             "entity_type": "@day_of_the_month", "alias": "day"},
+            # hour of the day
+            {"text": " tra le "},
+            {"text": str(hours[rand.randint(0, len(hours) - 1)]),
+             "entity_type": "@hour_of_the_day", "alias": "hour1"},
+            {"text": " e le "},
+            {"text": str(hours[rand.randint(0, len(hours) - 1)]),
+             "entity_type": "@hour_of_the_day", "alias": "hour2"
+             }]}
+
+    phrases.append(phrase)
+
 # call API to create intent
 for el in phrases:
     print(el)
@@ -77,8 +116,10 @@ intent = {
 
                    {"display_name": "medic", "entity_type_display_name": "@medical_profession",
                     "value": "$medic.original", "mandatory": True},
-                   {"display_name": "hour", "entity_type_display_name": "@hour_of_the_day",
+                   {"display_name": "hour1", "entity_type_display_name": "@hour_of_the_day",
                     "value": "$hour.original", "mandatory": True},
+                   {"display_name": "hour2", "entity_type_display_name": "@hour_of_the_day",
+                    "value": "$hour.original", "mandatory": False},
                    {"display_name": "day", "entity_type_display_name": "@day_of_the_month",
                     "value": "$day.original", "mandatory": True},
                    {"display_name": "city", "entity_type_display_name": "@sys.geo-city",
