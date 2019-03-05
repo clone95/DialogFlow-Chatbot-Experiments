@@ -11,20 +11,18 @@ client = dialogflow.EntityTypesClient()
 parent = client.project_agent_path(projectID)
 session_client = dialogflow.SessionsClient()
 
-
 days_entities = []
 
 for day in range(1, 30):
     days_entities.append({"value": str(day),
                           "synonyms": [str(day)]})
 
-client = dialogflow.EntityTypesClient()
-parent = client.project_agent_path(projectID)
 
 # day of the month
 entity_id = entity_types_mng.create_entity_type(projectID, "day_of_the_month", 1)
 parent_entity_type = parent + "/entityTypes/{}".format(entity_id.name[-36:])
 client.batch_create_entities(parent_entity_type, days_entities)
+
 
 # hour of the day
 entity_id = entity_types_mng.create_entity_type(projectID, "hour_of_the_day", 1)
@@ -42,7 +40,7 @@ entity_id = entity_types_mng.create_entity_type(projectID, "medical_profession",
 
 medics_entities = []
 
-with open("medical_profession_entries.csv", "r") as file:
+with open("data/medical_profession_entries.csv", "r") as file:
     for entry in file:
         medics_entities.append({"value": entry,
                                 "synonyms": [entry]})
@@ -50,3 +48,15 @@ with open("medical_profession_entries.csv", "r") as file:
 
 parent_entity_type = parent + "/entityTypes/{}".format(entity_id.name[-36:])
 client.batch_create_entities(parent_entity_type, medics_entities)
+
+
+# body parts creation
+entity_id = entity_types_mng.create_entity_type(projectID, "body_parts", 1)
+body_parts_entities = []
+with open("data/body_parts.csv") as file:
+    for entry in file:
+        body_parts_entities.append({"value": entry.split(",")[0],
+                                    "synonyms": entry.split(",")})
+
+parent_entity_type = parent + "/entityTypes/{}".format(entity_id.name[-36:])
+client.batch_create_entities(parent_entity_type, body_parts_entities)
