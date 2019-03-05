@@ -6,8 +6,8 @@ import management.entity_management as entity_mng
 
 
 # use GCP credentials and specify dialogflow project
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users\jack\Desktop\work\Google\pythontest-f8d5e75dddcd.json"
-projectID = "pythontest-59c9c"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/jack/Desktop/work/CLOUDIFAI/mycare-patients-6d3e767f97e4.json"
+projectID = "mycare-patients"
 
 session_client = dialogflow.SessionsClient()
 
