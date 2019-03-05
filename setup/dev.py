@@ -1,14 +1,9 @@
-# Imports the Google Cloud client library
 import os
-import dialogflow
-import management.entity_type_management as entity_types_mng
-import management.entity_management as entity_mng
 
+cities = []
 
-# use GCP credentials and specify dialogflow project
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users\jack\Desktop\work\Google\pythontest-f8d5e75dddcd.json"
-projectID = "pythontest-59c9c"
+with open("setup/cities.csv") as file:
+    for el in file.readlines():
+        cities.append(el[:-2])
 
-session_client = dialogflow.SessionsClient()
-
-entity_types_mng.list_entity_types(projectID)
+print(cities)

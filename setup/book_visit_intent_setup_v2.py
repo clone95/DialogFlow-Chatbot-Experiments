@@ -1,12 +1,11 @@
 import random as rand
 import os
 import dialogflow_v2 as dialogflow
-import management.intent_management as intent_mng
-import itertools as iter
+import itertools as iters
 
 # use GCP credentials and specify dialogflow project
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users\jack\Desktop\work\Google\pythontest-f8d5e75dddcd.json"
-projectID = "e56f1764-316e-4de6-b77b-eb7fd07c5afa"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/jack/Desktop/work/CLOUDIFAI/mycare-patients-6d3e767f97e4.json"
+projectID = "mycare-patients"
 
 client = dialogflow.IntentsClient()
 parent = client.project_agent_path(projectID)
@@ -20,11 +19,11 @@ professions_intro = [" mi serve un ", "cerca un ", " cercami un ", " trova un ",
 hours_intro = [" alle ", " per le ", " alle ore "]
 days_intro = [" il giorno ", " il "]
 
-with open("cities.csv") as file:
+with open("data/cities.csv") as file:
     for el in file.readlines():
-        cities.append(el.split("\t")[1])
+        cities.append(el[:-2])
 
-with open("medical_profession_entries.csv") as file:
+with open("data/medical_profession_entries.csv") as file:
     for el in file.readlines():
         professions.append(el[:-1])
 
@@ -37,7 +36,7 @@ for el in range(1, 31, 1):
 phrase = {}
 phrases = []
 
-for medic_i, city_i, day_i, hour_i in iter.product(professions_intro, cities_intro, days_intro, hours_intro):
+for medic_i, city_i, day_i, hour_i in iters.product(professions_intro, cities_intro, days_intro, hours_intro):
 
     phrase = {
                 "parts": [
